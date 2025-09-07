@@ -16,7 +16,7 @@ const formSchema = z.object({
 });
 
 export default function ProfilePage() {
-  const { user, moods, updateUser } = useAuth();
+  const { user, entries, updateUser } = useAuth();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,8 +41,8 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent>
                 <div className="mb-6 rounded-lg border bg-secondary p-4">
-                    <p className="text-sm font-medium text-secondary-foreground">Total Moods Logged</p>
-                    <p className="text-3xl font-bold text-secondary-foreground">{moods.length}</p>
+                    <p className="text-sm font-medium text-secondary-foreground">Total Entries Logged</p>
+                    <p className="text-3xl font-bold text-secondary-foreground">{entries.length}</p>
                 </div>
 
                 <Form {...form}>

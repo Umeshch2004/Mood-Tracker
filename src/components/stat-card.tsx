@@ -4,7 +4,7 @@ import type React from 'react';
 interface StatCardProps {
   title: string;
   value: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 export default function StatCard({ title, value, icon }: StatCardProps) {

@@ -1,10 +1,13 @@
-export type MoodValue = 'happy' | 'sad' | 'angry' | 'stressed' | 'excited';
-
-export interface Mood {
+export interface Entry {
   id: string;
-  mood: MoodValue;
-  note?: string;
-  timestamp: string;
+  date: string;
+  sleep: number;
+  stress: number;
+  symptoms: number;
+  mood: number;
+  engagement: number;
+  drugNames: string;
+  notes?: string;
 }
 
 export interface User {
