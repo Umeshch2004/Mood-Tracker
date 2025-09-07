@@ -7,6 +7,7 @@ import { PlusCircle, BarChart2, CalendarDays } from 'lucide-react';
 import StatCard from '@/components/stat-card';
 import MoodCard from '@/components/mood-card';
 import MoodTrendAnalysis from '@/components/mood-trend-analysis';
+import { Card } from '@/components/ui/card';
 
 export default function DashboardPage() {
   const { user, moods } = useAuth();
@@ -25,7 +26,7 @@ export default function DashboardPage() {
         <StatCard title="Last Logged Mood" value={lastLoggedMood} icon={<CalendarDays className="h-5 w-5 text-muted-foreground" />} />
         <Link href="/log-mood" className="lg:col-start-3">
           <Card className="flex h-full flex-col items-center justify-center bg-primary/20 hover:bg-primary/30 transition-colors border-2 border-dashed border-primary">
-            <div className="flex items-center gap-2 text-primary-foreground font-semibold">
+            <div className="flex items-center gap-2 text-primary font-semibold">
               <PlusCircle className="h-6 w-6" />
               <span>Log Today's Mood</span>
             </div>
