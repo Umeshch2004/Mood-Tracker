@@ -32,6 +32,24 @@ export default function DashboardPage() {
   const averageMood = entries.length > 0 ? (entries.reduce((acc, entry) => acc + entry.mood, 0) / entries.length).toFixed(1) : 'N/A';
   const averageSleep = entries.length > 0 ? (entries.reduce((acc, entry) => acc + entry.sleep, 0) / entries.length).toFixed(1) : 'N/A';
 
+  const calculateOverallScore = (entry: (typeof entries)[0]) => {
+    // Higher is better: mood, engagement, sleep
+    // Lower is better: stress, symptoms
+    const moodScore = entry.mood * 2; // Mood is important, weight it higher
+    const engagementScore = entry.engagement;
+    const sleepScore = (entry.sleep / 8) * 10; // Normalize sleep to a 1-10 scale (assuming 8h is optimal)
+
+    // Invert stress and symptoms so higher values are worse
+    const stressScore = (10 - entry.stress);
+    const symptomsScore = (10 - entry.symptoms);
+
+    const totalScore = moodScore + engagementScore + sleepScore + stressScore + symptomsScore;
+    const maxScore = 20 + 10 + 10 + 9 + 9; // Max possible score
+
+    const percentage = (totalScore / maxScore) * 100;
+    return Math.round(percentage);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-start">
@@ -67,7 +85,7 @@ export default function DashboardPage() {
                     <TableHead>Mood</TableHead>
                     <TableHead>Sleep</TableHead>
                     <TableHead>Stress</TableHead>
-                    <TableHead>Symptoms</TableHead>
+                    <TableHead>Overall Score</TableHead>
                     <TableHead>Drugs</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
@@ -79,7 +97,7 @@ export default function DashboardPage() {
                       <TableCell>{entry.mood}/10</TableCell>
                       <TableCell>{entry.sleep}h</TableCell>
                       <TableCell>{entry.stress}/10</TableCell>
-                      <TableCell>{entry.symptoms}/10</TableCell>
+                      <TableCell>{calculateOverallScore(entry)}%</TableCell>
                       <TableCell className="max-w-xs truncate">{entry.drugNames || 'N/A'}</TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
